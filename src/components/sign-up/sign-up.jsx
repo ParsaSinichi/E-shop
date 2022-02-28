@@ -14,33 +14,40 @@ class  SignUp extends React.Component {
 
         }
     }
-    handleSubmit= async event =>{
+    handleSubmit = async event => {
         event.preventDefault();
-        const {displayName,email,password,confirmPassword}=this.state;
-            if(password!=confirmPassword){
-                alert("password dont match")
-                return;
-            }
-            try {
-                const {user}=await auth.createUserWithEmailAndPassword(email,password);
-              await  createUserProfileDocument(user,displayName)
-              this.setState({
-                displayName:'',
-                email:'',
-                password:'',
-                confirmPassword:"",
-              })
-
-            } catch (error) {
-                console.error(error)
-            }
-    }
-    handleChange= event=>{
-        const {name,value}=event.target
-        this.setState({
-            name:value
-        })
-    }
+    
+        const { displayName, email, password, confirmPassword } = this.state;
+    
+        if (password !== confirmPassword) {
+          alert("passwords don't match");
+          return;
+        }
+    
+        try {
+          const { user } = await auth.createUserWithEmailAndPassword(
+            email,
+            password
+          );
+    
+          await createUserProfileDocument(user, { displayName });
+    
+          this.setState({
+            displayName: '',
+            email: '',
+            password: '',
+            confirmPassword: ''
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      };
+    
+      handleChange = event => {
+        const { name, value } = event.target;
+    
+        this.setState({ [name]: value });
+      };
     render() { 
         const {displayName,email,password,confirmPassword}=this.state;
         return (
@@ -48,19 +55,19 @@ class  SignUp extends React.Component {
                 <h2 className='title'> I do not have an account</h2>
                 <span>Sign up with your email and password </span>
                 <form className='sign-up-form' onSubmit={this.handleSubmit}>
-                <FormInput type='text' name='displayname' value={displayName} onChange={this.handleChange} lable="display name" required>
+                <FormInput type='text' name='displayname' value={displayName} onChange={this.handleChange} label="display name" required>
 
                 </FormInput>
 
-                <FormInput type='email' name='email' value={email} onChange={this.handleChange} lable="email" required>
+                <FormInput type='email' name='email' value={email} onChange={this.handleChange} label="email" required>
 
                 </FormInput>
 
-                <FormInput type='password' name='password' value={password} onChange={this.handleChange} lable="password" required>
+                <FormInput type='password' name='password' value={password} onChange={this.handleChange} label="password" required>
 
                 </FormInput>
 
-                <FormInput type='password' name='confirmPassword' value={confirmPassword} onChange={this.handleChange} lable=" confirmPassword" required>
+                <FormInput type='password' name='confirmPassword' value={confirmPassword} onChange={this.handleChange} label=" confirmPassword" required>
 
                 </FormInput>
 
