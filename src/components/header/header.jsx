@@ -31,7 +31,8 @@ function Header({currentUser}) {
 
      );
 }
-const mapStateMapToProps = state=>({
-currentUser: state.user.currentUser
-})
-export default connect(mapStateMapToProps )(Header);
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+});
+
+export default connect(mapStateToProps)(Header);
